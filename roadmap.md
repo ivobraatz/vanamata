@@ -1,137 +1,269 @@
 
-# Prompt Detalhado: Landing Page "Vanamata"
-
-**Objetivo:** Criar uma landing page profissional e inspiradora para a agência de viagens "Vanamata - Van na Mata", utilizando Next.js, CSS, Framer Motion e AOS para uma experiência de usuário envolvente e animada, focada em aventuras na natureza.
+**Objetivo:** Criar uma landing page visualmente impactante e de alto desempenho para "Vanamata - Van na Mata", focada em conversão e experiência premium.
 
 ---
 
-### 1. Tecnologias e Bibliotecas
-- **Framework:** Next.js 15+
-- **Estilização:** CSS Modules.
-- **Animações:**
-  - **Framer Motion:** Para micro-interações complexas e animações de componentes.
-  - **AOS (Animate On Scroll):** Para animações sutis de "fade" e "slide" ao rolar a página.
+## 1. Stack Técnico
+
+* **Framework:** Next.js 15+ (App Router)
+* **Estilização:** CSS Modules
+* **Animações:**
+  * Framer Motion (micro-interações, transições de página)
+  * AOS (scroll reveals)
 
 ---
 
-### 2. Identidade Visual
-- **Esquema de Cores:**
-  - **Fundo Principal:** Branco Creme/Bege Claro (`#FAF9F6` ou `#FFFFFF`).
-  - **Texto Principal:** Verde Escuro/Cinza Carvão (`#1F3A2D` ou `#2C3E37`).
-  - **Destaques (CTAs, links, ícones):** Verde Floresta Vibrante (`#2D7A4C` ou `#3A8B5C`).
-  - **Elementos Secundários:** Tons terrosos - marrom claro, verde musgo suave (`#E8E4DC`, `#A8B5A0`).
-- **Tipografia:**
-  - **Títulos (Headings):** Fonte sans-serif em negrito com toque aventureiro (Ex: **Montserrat Bold**, **Outfit ExtraBold**).
-  - **Corpo de Texto (Paragraphs):** Mesma família da fonte dos títulos, mas em peso regular ou fino (Ex: **Montserrat Regular**, **Open Sans**).
-- **Estilo de Design:**
-  - **Natural e Aventureiro:** Use espaçamento generoso com elementos orgânicos.
-  - **Efeitos:** Aplique overlays sutis em imagens de natureza, use sombras suaves para profundidade. Bordas arredondadas para um visual mais acolhedor. Texturas sutis de madeira ou folhagens em backgrounds específicos.
-  - **Ícones:** Utilize ícones relacionados à natureza - montanhas, árvores, cachoeiras, bússola (Ex: Lucide Icons, Feather Icons).
+## 2. Design System
+
+### Paleta de Cores
+
+```
+Primary Background: #FDFCFA (Off-white quente)
+Text Primary: #1A2F23 (Verde escuro profundo)
+Accent/CTA: #2D7A4C (Verde floresta vibrante)
+Secondary: #8B9D83 (Verde musgo)
+Neutral: #E8E4DC (Bege terroso)
+```
+
+### Tipografia
+
+* **Headings:** Montserrat Bold/ExtraBold (impacto visual)
+* **Body:** Montserrat Regular/Light (legibilidade)
+* **Hierarquia:** H1 (56-64px), H2 (40-48px), H3 (28-32px), Body (16-18px)
+
+### Princípios Visuais
+
+* Espaçamento generoso (breathing room)
+* Imagens fullscreen de alta qualidade
+* Overlays sutis (gradientes escuros 40-60% opacity)
+* Border-radius: 12-16px
+* Box-shadows suaves para profundidade
+* Ícones: Lucide React (montanhas, árvores, bússola, mapa)
 
 ---
 
-### 3. Estrutura da Página (Seções)
+## 3. Estrutura da Página
 
-**a) Header:**
-- **Layout:** Fixo no topo, com um leve efeito de transparência e sombra ao rolar (glassmorphism sutil).
-- **Conteúdo:**
-  - Logo da Vanamata à esquerda (com ilustração de van e natureza).
-  - Links de navegação no centro: `Sobre`, `Destinos`, `Pacotes`, `Contato`.
-  - Botão CTA (Call-to-Action) à direita: `Reserve sua Aventura`.
+### A) Header (Fixed)
 
-**b) Seção Hero:**
-- **Objetivo:** Capturar a atenção do visitante imediatamente e inspirar aventura.
-- **Conteúdo:**
-  - **Título Principal:** Uma frase de impacto. Ex: "Viva a aventura: Montanhas, Cachoeiras e Natureza Selvagem"
-  - **Subtítulo:** Uma breve descrição. Ex: "Descubra os destinos mais incríveis do Brasil com conforto, segurança e muita natureza."
-  - **CTA Principal:** Botão `Explorar Destinos` ou `Ver Pacotes`.
-  - **Visual:** Imagem/vídeo em fullscreen de uma van em uma estrada de montanha ou próximo a uma cachoeira, com overlay sutil. Parallax scroll para criar profundidade.
+* Logo à esquerda com ícone de van + montanha
+* Nav center: Destinos | Pacotes | Galeria | Contato
+* CTA destaque direita: "Reserve Agora" (botão verde vibrante)
+* Glassmorphism ao scroll (backdrop-blur + transparência)
 
-**c) Seção Sobre a Vanamata:**
-- **Objetivo:** Apresentar o conceito e diferenciais da agência.
-- **Layout:** Dividido em 2 ou 3 subseções com cards visuais, cada uma com:
-  - **Título do Diferencial:** Ex: "Aventura com Segurança", "Roteiros Exclusivos", "Natureza em Primeiro Lugar".
-  - **Descrição:** Texto curto explicando o benefício e filosofia.
-  - **Imagem Ilustrativa:** Foto de alta qualidade mostrando o diferencial (ex: grupo em trilha, van equipada, cachoeira).
+### B) Hero Section (Fullscreen)
 
-**d) Seção de Destinos Populares:**
-- **Objetivo:** Mostrar os principais destinos oferecidos.
-- **Layout:** Grid de 3 a 6 cards de destinos com imagens impactantes.
-- **Conteúdo de cada Card (Destino):**
-  - Foto de alta qualidade do local (montanha, cachoeira, trilha).
-  - Nome do Destino (Ex: Serra da Mantiqueira, Chapada dos Veadeiros).
-  - Breve descrição ou atrativos principais.
-  - Botão CTA para `Saber Mais` ou `Ver Pacotes`.
-- **Animação:** Cards com efeito hover (zoom suave na imagem, overlay com informações).
+**Visual:** Vídeo/imagem parallax de van em estrada de montanha ao pôr do sol
 
-**e) Seção de Pacotes/Experiências:**
-- **Objetivo:** Apresentar os tipos de experiências oferecidas.
-- **Layout:** 3 cards lado a lado ou em formato carrossel.
-- **Conteúdo de cada Card:**
-  - Nome do Pacote (Ex: "Aventura de Fim de Semana", "Expedição 5 Dias", "Especial Cachoeiras").
-  - Duração e tipo de experiência.
-  - Lista de atividades incluídas (trilhas, banhos de cachoeira, acampamento, etc.).
-  - Indicação de preço ou faixa de valor.
-  - Botão CTA para `Reserve Agora` ou `Consultar`.
-- **Destaque:** O pacote mais popular deve ter um destaque visual (selo "Mais Procurado" ou borda especial).
+**Conteúdo centralizado:**
 
-**f) Seção de Depoimentos:**
-- **Objetivo:** Construir confiança através de experiências reais.
-- **Layout:** Carrossel de depoimentos com fotos dos clientes.
-- **Conteúdo:** 4 a 6 depoimentos com foto, nome, e relato breve da experiência vivida com a Vanamata.
+* H1: "Aventuras Autênticas na Natureza Brasileira"
+* Subtitle: "Montanhas, cachoeiras e trilhas inesquecíveis com conforto e segurança"
+* Dual CTA:
+  * Primary: "Explorar Destinos" (verde sólido)
+  * Secondary: "Ver Pacotes" (outline)
+* Scroll indicator animado (seta/mouse)
 
-**g) Seção de FAQ (Perguntas Frequentes):**
-- **Objetivo:** Responder às dúvidas comuns dos viajantes.
-- **Layout:** Componente de "acordeão", onde cada pergunta pode ser clicada para revelar a resposta.
-- **Conteúdo:** 5 a 7 perguntas sobre seguro, equipamentos necessários, nível de dificuldade, alimentação, cancelamento, etc.
+**Animação:** Fade in + slide up suave no conteúdo, parallax no background
 
-**h) Seção de Captura de Contato (Newsletter/Formulário):**
-- **Objetivo:** Construir uma lista de interessados e facilitar contato.
-- **Layout:** Seção com background de imagem de natureza com overlay.
-- **Conteúdo:**
-  - **Título:** Ex: "Pronto para sua próxima aventura? Entre em contato!"
-  - **Campo de Nome, E-mail e Telefone.**
-  - **Campo opcional de mensagem/interesse.**
-  - **Botão de Envio:** `Quero Saber Mais`.
+### C) Diferenciais (3 Cards Grid)
 
-**i) Footer (Rodapé):**
-- **Layout:** Organizado com fundo verde escuro ou terroso.
-- **Conteúdo:**
-  - Logo da Vanamata.
-  - Links para redes sociais (Instagram, Facebook, WhatsApp).
-  - Links úteis (repetir os links do header + Política de Privacidade).
-  - Informações de contato (telefone, e-mail).
-  - Informações de copyright: `© 2025 Vanamata - Van na Mata. Todos os direitos reservados.`
+**Layout:** 3 colunas responsivas com ícones grandes
+
+**Cards:**
+
+1. **Aventura + Conforto** - Ícone: Van
+   * Vans equipadas, máximo 12 pessoas, experiência intimista
+2. **Roteiros Exclusivos** - Ícone: Mapa
+   * Destinos únicos, guias especializados, tudo incluído
+3. **Turismo Sustentável** - Ícone: Folha
+   * Zero impacto ambiental, respeito à natureza
+
+**Animação:** Stagger fade-in ao scroll, hover scale + shadow
+
+### D) Destinos (Grid Dinâmico)
+
+**Layout:** Grid 2x3 (6 destinos) com imagens impactantes
+
+**Destinos:**
+
+1. Serra da Mantiqueira
+2. Chapada dos Veadeiros
+3. Litoral Norte SP
+4. Serra da Canastra
+5. Chapada Diamantina
+6. Itatiaia
+
+**Card hover:**
+
+* Zoom suave na imagem (scale 1.1)
+* Overlay com gradiente + texto descritivo
+* CTA "Descobrir" aparece
+
+**Animação:** AOS fade-up com delay escalonado
+
+### E) **Galeria de Fotos (NOVA SEÇÃO)**
+
+**Objetivo:** Provar a qualidade das experiências através de imagens reais impactantes
+
+**Layout:** Masonry grid (Pinterest-style) ou Bento grid assimétrico
+
+**Conteúdo:**
+
+* 12-16 fotos profissionais de alta resolução
+* Mix de: paisagens (60%), pessoas em ação (30%), detalhes (10%)
+* Categorias: Cachoeiras, Trilhas, Montanhas, Momentos do Grupo
+
+**Funcionalidade:**
+
+* Lightbox ao clicar (navegação entre fotos)
+* Lazy loading otimizado
+* Filtros por categoria (opcional)
+
+**Visual:**
+
+* Grid irregular para dinamismo
+* Hover: overlay com localização + data
+* Transições suaves entre imagens
+
+**Animação:** Reveal progressivo (aparecem em sequência ao scroll)
+
+### F) Pacotes (3 Cards Destacados)
+
+**Layout:** Cards horizontais ou verticais lado a lado
+
+**Pacotes:**
+
+1. **Fim de Semana** (2 dias) - Popular badge
+   * Cachoeira + trilha leve
+   * A partir de R$ 650/pessoa
+2. **Expedição Completa** (5 dias)
+   * Múltiplos destinos + camping
+   * A partir de R$ 2.200/pessoa
+3. **Especial Aventura** (3 dias)
+   * Trilhas avançadas + escalada
+   * A partir de R$ 1.350/pessoa
+
+**Visual:** Destaque visual no mais popular (borda grossa, badge)
+
+**CTA:** "Consultar Disponibilidade"
+
+### G) Depoimentos (Carrossel)
+
+**Layout:** Carrossel automático com 3 cards visíveis
+
+**Estrutura:**
+
+* Foto circular do cliente
+* Texto do depoimento (2-3 linhas)
+* Nome + estrelas (5/5)
+* Destino visitado
+
+**Animação:** Transição suave automática a cada 5s, pause no hover
+
+### H) FAQ (Accordion)
+
+**6 Perguntas Essenciais:**
+
+1. O que está incluído nos pacotes?
+2. Qual o nível de dificuldade das trilhas?
+3. Preciso de equipamento especial?
+4. Como funciona o seguro?
+5. Qual a política de cancelamento?
+6. Posso levar crianças?
+
+**Design:** Ícone + / - animado, resposta com fade
+
+### I) Formulário de Contato
+
+**Background:** Imagem de cachoeira com overlay escuro (70%)
+
+**Campos:**
+
+* Nome completo
+* Email
+* Telefone (WhatsApp)
+* Destino de interesse (select)
+* Mensagem (opcional)
+
+**CTA:** "Quero Minha Aventura!" (botão grande)
+
+**Design:** Form em card branco centralizado, contraste máximo
+
+### J) Footer
+
+**Background:** Verde escuro (`<span class="inline-block w-3 h-3 border-[0.5px] border-border-200 rounded flex-shrink-0 shadow-sm mr-1 align-middle"></span>#1A2F23`)
+
+**Layout 4 colunas:**
+
+1. Logo + tagline
+2. Links rápidos
+3. Contato (telefone, email, endereço)
+4. Redes sociais (ícones grandes clicáveis)
+
+**Bottom bar:** Copyright + Política de Privacidade
 
 ---
 
-### 4. Sobre a Vanamata (Conteúdo para as seções)
-A Vanamata é uma agência de viagens especializada em experiências autênticas na natureza brasileira. Com o conceito "Van na Mata", oferecemos aventuras inesquecíveis em montanhas, cachoeiras e pontos turísticos naturais, combinando conforto, segurança e respeito ao meio ambiente. Nossa missão é conectar pessoas à natureza através de roteiros exclusivos e experiências transformadoras.
+## 4. Conteúdo Copywriting
 
-**Diferenciais Principais a serem destacados:**
-- **Aventura com Conforto:** Vans equipadas com todo conforto necessário para longas viagens e acesso a locais remotos.
-- **Roteiros Exclusivos:** Destinos cuidadosamente selecionados, incluindo trilhas, cachoeiras escondidas e mirantes de montanha.
-- **Guias Especializados:** Equipe experiente em ecoturismo, primeiros socorros e conhecedores profundos das regiões visitadas.
-- **Grupos Pequenos:** Experiências intimistas com no máximo 8 a 12 pessoas por viagem para maior integração.
-- **Sustentabilidade:** Compromisso com turismo responsável, deixando zero impacto nos ambientes visitados.
-- **Fotografia de Aventura:** Registros profissionais incluídos em pacotes selecionados.
-- **Flexibilidade:** Opções de pacotes de 1 dia até expedições de 7 dias ou mais.
-- **Tudo Incluído:** Transporte, alimentação, guias, seguro viagem e equipamentos básicos.
+### Hero
 
-**Proposta de Valor (Conteúdo para a seção "Sobre"):**
-- **Conexão com a Natureza:** Em um mundo cada vez mais urbano e digital, oferecemos a oportunidade de reconexão com ambientes naturais preservados.
-- **Experiências Memoráveis:** Não são apenas viagens, são vivências que transformam perspectivas e criam histórias para toda vida.
-- **Segurança Total:** Todos os roteiros são planejados com protocolos de segurança rigorosos, seguros adequados e equipamentos de qualidade.
+**H1:** "Aventuras Autênticas na Natureza Brasileira"
+**Subtitle:** "Descubra montanhas, cachoeiras e trilhas com conforto, segurança e grupos exclusivos de até 12 pessoas"
 
-**Destinos em Destaque (Conteúdo para a seção de Destinos):**
-- **Serra da Mantiqueira:** Trilhas de altitude, cachoeiras cristalinas e vistas panorâmicas impressionantes.
-- **Chapada dos Veadeiros:** Formações rochosas únicas, águas termais e biodiversidade exuberante.
-- **Litoral Norte de São Paulo:** Praias selvagens, trilhas na Mata Atlântica e comunidades tradicionais.
-- **Serra da Canastra:** Nascente do Rio São Francisco, cachoeiras majestosas e fauna abundante.
-- **Vale do Capão - Chapada Diamantina:** Vilarejos acolhedores, trilhas desafiadoras e cachoeiras de cair o queixo.
+### Sobre (Mini-seção opcional)
 
-**Depoimentos Reais (Conteúdo para a seção de Depoimentos):**
-- _"A experiência com a Vanamata superou todas as expectativas! A cachoeira que visitamos era de tirar o fôlego."_ - **Ana Silva**
-- _"Segurança, aventura e natureza em doses perfeitas. Já estou planejando a próxima viagem!"_ - **Carlos Mendes**
-- _"Os guias são incríveis, conhecem cada detalhe dos lugares. Me senti em casa na mata."_ - **Juliana Costa**
+"A Vanamata conecta você aos lugares mais incríveis do Brasil. Com roteiros exclusivos, guias especializados e compromisso total com sustentabilidade, transformamos viagens em experiências que marcam para sempre."
 
+### Social Proof
+
+* "+500 aventureiros"
+* "15 destinos exclusivos"
+* "98% satisfação"
+
+---
+
+## 5. Performance & UX
+
+### Otimizações Críticas
+
+* Next.js Image optimization (lazy load, WebP)
+* Preload hero image/video
+* Code splitting por seção
+* Smooth scroll behavior
+* Mobile-first responsive
+* Touch gestures (carrossel, galeria)
+
+### Animações
+
+* Não exagerar (60fps sempre)
+* Reduzir em motion-reduced preference
+* Usar GPU acceleration (transform, opacity)
+
+### CTAs
+
+* Cores contrastantes (acessibilidade WCAG AA)
+* Hover states óbvios
+* Mobile: botões grandes (min 44x44px)
+
+---
+
+## 6. Conversão
+
+### CTAs Estratégicos
+
+* Hero: 2 CTAs
+* Cada seção de destino: CTA individual
+* Pacotes: CTA por card
+* Final da página: CTA forte no form
+* Header: CTA persistente
+
+### Urgência/Escassez (opcional)
+
+* "Vagas limitadas para [próximo mês]"
+* "Próxima expedição: [data]"
+
+---
+
+**Resultado Esperado:** Landing page premium que transmite aventura, profissionalismo e confiança, com foco total em conversão através de storytelling visual impactante.

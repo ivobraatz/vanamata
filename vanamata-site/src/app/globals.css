@@ -1,0 +1,74 @@
+:root {
+  --color-background: #faf9f6;
+  --color-foreground: #1f3a2d;
+  --color-forest: #2d7a4c;
+  --color-forest-bright: #3a8b5c;
+  --color-cream: #ffffff;
+  --color-sand: #e8e4dc;
+  --color-moss: #a8b5a0;
+  --color-shadow: rgba(12, 28, 22, 0.08);
+  --radius-pill: 999px;
+  --radius-card: 28px;
+  --radius-soft: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body), "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: var(--color-foreground);
+  background: var(--color-background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: radial-gradient(circle at 10% 20%, rgba(58, 139, 92, 0.08), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(45, 122, 76, 0.08), transparent 35%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), "Montserrat", "Open Sans", sans-serif;
+  color: var(--color-foreground);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: var(--color-forest);
+  color: var(--color-cream);
+}

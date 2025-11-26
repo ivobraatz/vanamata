@@ -220,32 +220,39 @@
 
 .destinationsWrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  padding: 0 3rem;
   margin-bottom: 2rem;
 }
 
 .destinationsSlider {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
   padding: 1rem 0 2rem;
-  scrollbar-width: none;
-  /* Safari */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scroll-behavior: smooth;
-  flex: 1;
 }
 
-.destinationsSlider::-webkit-scrollbar {
-  display: none;
+.sliderNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  border: 2px solid var(--color-accent);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(45, 122, 76, 0.2);
+  z-index: 10;
+}
 
+.sliderNav:first-of-type {
+  left: 0;
+}
+
+.sliderNav:last-of-type {
+  right: 0;
 }
 
 .sliderNav:hover {
@@ -263,45 +270,18 @@
   position: relative;
   overflow: hidden;
   border-radius: 1.2rem;
-  min-height: 420px;
-  min-width: 380px;
-  flex-shrink: 0;
-  scroll-snap-align: start;
+  height: 420px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(7, 12, 9, 0.12);
 }
 
 .destinationCard:hover {
   transform: translateY(-8px);
 }
 
-.destinationDots {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  align-items: center;
-  margin-top: 1rem;
-}
-
-.destinationDots button {
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  border: 2px solid var(--color-accent);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-}
-
-.destinationDots button:hover {
-  background: rgba(45, 122, 76, 0.4);
-  transform: scale(1.2);
-}
-
-.dotActive {
-  background: var(--color-accent) !important;
-  width: 32px !important;
-  border-radius: 999px !important;
+.destinationPagination {
+  text-align: center;
+  margin-top: 1.5rem;
 }
 
 .destinationMedia {
@@ -344,14 +324,26 @@
 .destinationContent button {
   align-self: flex-start;
   margin-top: 1rem;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   color: #fff;
   border-radius: 999px;
-  padding: 0.6rem 1.4rem;
+  padding: 0.65rem 1.5rem;
   display: inline-flex;
+  align-items: center;
   gap: 0.4rem;
   font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.destinationContent button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(4px);
 }
 
 .galleryFilters {
@@ -1028,25 +1020,21 @@
   }
 
   .destinationCard {
-    min-width: 280px;
-    min-height: 360px;
-  }
-
-  .destinationsSlider {
-    padding: 1rem 0 1.5rem;
+    height: 380px;
   }
 
   .destinationsWrapper {
-    gap: 0.5rem;
+    padding: 0 1rem;
   }
 
   .sliderNav {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
   }
 
-  .destinationDots {
-    gap: 0.5rem;
+  .sliderNav svg {
+    width: 20px;
+    height: 20px;
   }
 
   .testimonialsSection {

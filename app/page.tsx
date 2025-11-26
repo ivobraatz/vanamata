@@ -11,6 +11,11 @@ import styles from "./page.module.css";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import {
 	ArrowUpRight,
 	Bus,
@@ -342,7 +347,6 @@ export default function Home() {
 	const [scrolled, setScrolled] = useState(false);
 	const [galleryCategory, setGalleryCategory] = useState<string>(GALLERY_CATEGORIES[0]);
 	const [activeTestimonial, setActiveTestimonial] = useState(0);
-	const [activeDestination, setActiveDestination] = useState(0);
 	const [openFaq, setOpenFaq] = useState<string>(FAQS[0].question);
 	const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhoto | null>(null);
 
@@ -368,31 +372,7 @@ export default function Home() {
 		return () => clearInterval(interval);
 	}, []);
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setActiveDestination((prev) => (prev + 1) % DESTINATIONS.length);
-		}, 4000);
-		return () => clearInterval(interval);
-	}, []);
 
-	useEffect(() => {
-		const slider = document.getElementById('destinations-slider');
-		if (slider) {
-			const cardWidth = 380 + 24; // card width + gap
-			slider.scrollTo({
-				left: activeDestination * cardWidth,
-				behavior: 'smooth'
-			});
-		}
-	}, [activeDestination]);
-
-	const handleDestinationNav = (direction: 'prev' | 'next') => {
-		if (direction === 'prev') {
-			setActiveDestination((prev) => (prev - 1 + DESTINATIONS.length) % DESTINATIONS.length);
-		} else {
-			setActiveDestination((prev) => (prev + 1) % DESTINATIONS.length);
-		}
-	};
 
 	const filteredGallery = useMemo(() => {
 		if (galleryCategory === "Todos") return GALLERY;
@@ -533,63 +513,80 @@ export default function Home() {
 						<h2>Seis regiões para se perder e se encontrar</h2>
 					</header>
 					<div className={styles.destinationsWrapper}>
+						<Swiper
+							modules={[Navigation, Pagination, Autoplay]}
+							spaceBetween={24}
+							slidesPerView={1}
+							navigation={{
+								prevEl: '.swiper-button-prev-custom',
+								nextEl: '.swiper-button-next-custom',
+							}}
+							pagination={{
+								clickable: true,
+								el: '.swiper-pagination-custom',
+							}}
+							autoplay={{
+								delay: 4000,
+								disableOnInteraction: false,
+							}}
+							loop={true}
+							breakpoints={{
+								640: {
+									slidesPerView: 1.5,
+									spaceBetween: 20,
+								},
+								768: {
+									slidesPerView: 2,
+									spaceBetween: 24,
+								},
+								1024: {
+									slidesPerView: 3,
+									spaceBetween: 24,
+								},
+							}}
+							className={styles.destinationsSlider}
+						>
+							{DESTINATIONS.map((destination) => (
+								<SwiperSlide key={destination.name}>
+									<article className={styles.destinationCard}>
+										<div className={styles.destinationMedia}>
+											<Image
+												src={destination.image}
+												alt={destination.name}
+												fill
+												sizes="(max-width: 768px) 90vw, 400px"
+											/>
+											<div className={styles.destinationOverlay} />
+										</div>
+										<div className={styles.destinationContent}>
+											<span>{destination.tag}</span>
+											<h3>{destination.name}</h3>
+											<p>{destination.description}</p>
+											<button type="button">
+												Descobrir
+												<ArrowUpRight size={18} />
+											</button>
+										</div>
+									</article>
+								</SwiperSlide>
+							))}
+						</Swiper>
 						<button 
 							type="button" 
-							className={styles.sliderNav} 
-							onClick={() => handleDestinationNav('prev')}
+							className={`${styles.sliderNav} swiper-button-prev-custom`}
 							aria-label="Destino anterior"
 						>
 							<ChevronLeft size={24} />
 						</button>
-						<div className={styles.destinationsSlider} id="destinations-slider">
-							{DESTINATIONS.map((destination, index) => (
-								<article
-									key={destination.name}
-									className={styles.destinationCard}
-									data-aos="fade-right"
-									data-aos-delay={index * 80}
-								>
-									<div className={styles.destinationMedia}>
-										<Image
-											src={destination.image}
-											alt={destination.name}
-											fill
-											sizes="(max-width: 768px) 90vw, 400px"
-										/>
-										<div className={styles.destinationOverlay} />
-									</div>
-									<div className={styles.destinationContent}>
-										<span>{destination.tag}</span>
-										<h3>{destination.name}</h3>
-										<p>{destination.description}</p>
-										<button type="button">
-											Descobrir
-											<ArrowUpRight size={18} />
-										</button>
-									</div>
-								</article>
-							))}
-						</div>
 						<button 
 							type="button" 
-							className={styles.sliderNav} 
-							onClick={() => handleDestinationNav('next')}
+							className={`${styles.sliderNav} swiper-button-next-custom`}
 							aria-label="Próximo destino"
 						>
 							<ChevronRight size={24} />
 						</button>
 					</div>
-					<div className={styles.destinationDots}>
-						{DESTINATIONS.map((_, index) => (
-							<button
-								key={index}
-								type="button"
-								className={index === activeDestination ? styles.dotActive : ''}
-								onClick={() => setActiveDestination(index)}
-								aria-label={`Ver ${DESTINATIONS[index].name}`}
-							/>
-						))}
-					</div>
+					<div className="swiper-pagination-custom"></div>
 				</section>
 
 				<section className={styles.section} id="galeria">

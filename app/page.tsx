@@ -16,9 +16,13 @@ import {
 	Bus,
 	Camera,
 	ChevronDown,
+	ChevronLeft,
+	ChevronRight,
 	Compass,
+	Facebook,
 	Instagram,
 	Leaf,
+	Mail,
 	MapIcon,
 	PhoneCall,
 	Star,
@@ -106,7 +110,7 @@ const DIFFERENTIALS: Differential[] = [
 	},
 ];
 
-const HERO_IMAGE = buildUnsplashSrc("photo-1500534314214-2c67e6c77c19", 2000);
+const HERO_IMAGE = "/background.webp";
 
 const DESTINATIONS: Destination[] = [
 	{
@@ -338,6 +342,7 @@ export default function Home() {
 	const [scrolled, setScrolled] = useState(false);
 	const [galleryCategory, setGalleryCategory] = useState<string>(GALLERY_CATEGORIES[0]);
 	const [activeTestimonial, setActiveTestimonial] = useState(0);
+	const [activeDestination, setActiveDestination] = useState(0);
 	const [openFaq, setOpenFaq] = useState<string>(FAQS[0].question);
 	const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhoto | null>(null);
 
@@ -362,6 +367,32 @@ export default function Home() {
 		}, 5000);
 		return () => clearInterval(interval);
 	}, []);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setActiveDestination((prev) => (prev + 1) % DESTINATIONS.length);
+		}, 4000);
+		return () => clearInterval(interval);
+	}, []);
+
+	useEffect(() => {
+		const slider = document.getElementById('destinations-slider');
+		if (slider) {
+			const cardWidth = 380 + 24; // card width + gap
+			slider.scrollTo({
+				left: activeDestination * cardWidth,
+				behavior: 'smooth'
+			});
+		}
+	}, [activeDestination]);
+
+	const handleDestinationNav = (direction: 'prev' | 'next') => {
+		if (direction === 'prev') {
+			setActiveDestination((prev) => (prev - 1 + DESTINATIONS.length) % DESTINATIONS.length);
+		} else {
+			setActiveDestination((prev) => (prev + 1) % DESTINATIONS.length);
+		}
+	};
 
 	const filteredGallery = useMemo(() => {
 		if (galleryCategory === "Todos") return GALLERY;
@@ -501,33 +532,62 @@ export default function Home() {
 						<p>Destinos Selecionados</p>
 						<h2>Seis regiões para se perder e se encontrar</h2>
 					</header>
-					<div className={styles.destinationsGrid}>
-						{DESTINATIONS.map((destination, index) => (
-							<article
-								key={destination.name}
-								className={styles.destinationCard}
-								data-aos="fade-up"
-								data-aos-delay={index * 80}
-							>
-								<div className={styles.destinationMedia}>
-									<Image
-										src={destination.image}
-										alt={destination.name}
-										fill
-										sizes="(max-width: 768px) 100vw, 50vw"
-									/>
-									<div className={styles.destinationOverlay} />
-								</div>
-								<div className={styles.destinationContent}>
-									<span>{destination.tag}</span>
-									<h3>{destination.name}</h3>
-									<p>{destination.description}</p>
-									<button type="button">
-										Descobrir
-										<ArrowUpRight size={18} />
-									</button>
-								</div>
-							</article>
+					<div className={styles.destinationsWrapper}>
+						<button 
+							type="button" 
+							className={styles.sliderNav} 
+							onClick={() => handleDestinationNav('prev')}
+							aria-label="Destino anterior"
+						>
+							<ChevronLeft size={24} />
+						</button>
+						<div className={styles.destinationsSlider} id="destinations-slider">
+							{DESTINATIONS.map((destination, index) => (
+								<article
+									key={destination.name}
+									className={styles.destinationCard}
+									data-aos="fade-right"
+									data-aos-delay={index * 80}
+								>
+									<div className={styles.destinationMedia}>
+										<Image
+											src={destination.image}
+											alt={destination.name}
+											fill
+											sizes="(max-width: 768px) 90vw, 400px"
+										/>
+										<div className={styles.destinationOverlay} />
+									</div>
+									<div className={styles.destinationContent}>
+										<span>{destination.tag}</span>
+										<h3>{destination.name}</h3>
+										<p>{destination.description}</p>
+										<button type="button">
+											Descobrir
+											<ArrowUpRight size={18} />
+										</button>
+									</div>
+								</article>
+							))}
+						</div>
+						<button 
+							type="button" 
+							className={styles.sliderNav} 
+							onClick={() => handleDestinationNav('next')}
+							aria-label="Próximo destino"
+						>
+							<ChevronRight size={24} />
+						</button>
+					</div>
+					<div className={styles.destinationDots}>
+						{DESTINATIONS.map((_, index) => (
+							<button
+								key={index}
+								type="button"
+								className={index === activeDestination ? styles.dotActive : ''}
+								onClick={() => setActiveDestination(index)}
+								aria-label={`Ver ${DESTINATIONS[index].name}`}
+							/>
 						))}
 					</div>
 				</section>
@@ -623,51 +683,95 @@ export default function Home() {
 					</div>
 				</section>
 
-				<section className={styles.section} id="depoimentos">
-					<header className={styles.sectionIntro} data-aos="fade-up">
-						<p>Depoimentos</p>
-						<h2>Histórias de quem já viveu a Vanamata</h2>
-					</header>
-					<div className={styles.carousel}>
-						{visibleTestimonials.map((testimonial, index) => (
-							<article
-								key={testimonial.name}
-								className={styles.testimonialCard}
-								data-aos="fade-up"
-								data-aos-delay={index * 120}
+				<section className={styles.testimonialsSection} id="depoimentos">
+				<div className={styles.testimonialsContainer}>
+				<header className={styles.sectionIntro} data-aos="fade-up">
+					<p>Depoimentos</p>
+					<h2>Histórias de quem já viveu a Vanamata</h2>
+					<div className={styles.testimonialStats}>
+						<div>
+							<strong>98%</strong>
+							<span>Satisfação</span>
+						</div>
+						<div>
+							<strong>500+</strong>
+							<span>Viajantes</span>
+						</div>
+						<div>
+							<strong>4.9/5</strong>
+							<span>Avaliação</span>
+						</div>
+					</div>
+				</header>
+				<div className={styles.testimonialMain}>
+					<motion.div 
+						className={styles.testimonialFeatured}
+						key={activeTestimonial}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5 }}
+					>
+						<div className={styles.quoteIcon}>"</div>
+						<div className={styles.rating}>
+							{Array.from({ length: 5 }).map((_, starIndex) => (
+								<Star 
+									key={starIndex} 
+									size={20} 
+									fill={starIndex < TESTIMONIALS[activeTestimonial].rating ? "#f0b429" : "none"}
+									strokeWidth={starIndex < TESTIMONIALS[activeTestimonial].rating ? 0 : 2}
+								/>
+							))}
+						</div>
+						<p className={styles.testimonialQuote}>
+							"{TESTIMONIALS[activeTestimonial].text}"
+						</p>
+						<div className={styles.testimonialAuthor}>
+							<div className={styles.testimonialAvatar}>
+								<Image
+									src={TESTIMONIALS[activeTestimonial].avatar}
+									alt={TESTIMONIALS[activeTestimonial].name}
+									width={48}
+									height={48}
+									style={{ objectFit: 'cover' }}
+								/>
+							</div>
+							<div>
+								<strong>{TESTIMONIALS[activeTestimonial].name}</strong>
+								<span>{TESTIMONIALS[activeTestimonial].location}</span>
+								<span className={styles.testimonialTrip}>{TESTIMONIALS[activeTestimonial].trip}</span>
+							</div>
+						</div>
+					</motion.div>
+					<div className={styles.testimonialThumbs}>
+						{TESTIMONIALS.map((testimonial, index) => (
+							<button
+								key={index}
+								type="button"
+								className={`${styles.testimonialThumb} ${index === activeTestimonial ? styles.testimonialThumbActive : ''}`}
+								onClick={() => setActiveTestimonial(index)}
+								aria-label={`Ver depoimento de ${testimonial.name}`}
 							>
-								<div className={styles.testimonialHeader}>
-									<Image
-										src={testimonial.avatar}
-										alt={testimonial.name}
-										width={56}
-										height={56}
-									/>
-									<div>
-										<strong>{testimonial.name}</strong>
-										<span>
-											{testimonial.location} • {testimonial.trip}
-										</span>
-									</div>
-								</div>
-								<p>“{testimonial.text}”</p>
-								<div className={styles.rating}>
-									{Array.from({ length: testimonial.rating }).map((_, index) => (
-										<Star key={index} size={16} />
-									))}
-								</div>
-							</article>
+								<Image
+									src={testimonial.avatar}
+									alt={testimonial.name}
+									width={56}
+									height={56}
+									style={{ objectFit: 'cover' }}
+								/>
+							</button>
 						))}
 					</div>
-				</section>
+				</div>
+				</div>
+			</section>
 
-				<section className={styles.section} id="faq">
-					<header className={styles.sectionIntro} data-aos="fade-up">
-						<p>Perguntas Frequentes</p>
-						<h2>Transparência em cada detalhe</h2>
-					</header>
-					<div className={styles.accordion}>
-						{FAQS.map((faq) => (
+			<section className={styles.section} id="faq">
+				<header className={styles.sectionIntro} data-aos="fade-up">
+					<p>Perguntas Frequentes</p>
+					<h2>Transparência em cada detalhe</h2>
+				</header>
+				<div className={styles.accordion}>
+					{FAQS.map((faq) => (
 							<article key={faq.question} className={styles.accordionItem}>
 								<button type="button" onClick={() => handleFaqToggle(faq.question)}>
 									<span>{faq.question}</span>
@@ -684,27 +788,30 @@ export default function Home() {
 
 				<section className={styles.contact} id="contato" data-aos="fade-up">
 					<div className={styles.contactMedia}>
-						<Image
-							src={buildUnsplashSrc("photo-1502920917128-1aa500764b43", 1400)}
-							alt="Cachoeira com van Vanamata"
-							fill
-							sizes="(max-width: 768px) 100vw, 50vw"
-						/>
+						   <Image
+							   src="/waterfall.webp"
+							   alt="Cachoeira com van Vanamata"
+							   fill
+							   sizes="(max-width: 768px) 100vw, 50vw"
+						   />
 						<div className={styles.contactOverlay}>
 							<h2>Pronto para a próxima aventura?</h2>
 							<p>
 								Conte qual destino faz seus olhos brilharem e personalizamos o roteiro ideal.
 							</p>
 							<div className={styles.contactInfo}>
-								<p>
-									<PhoneCall size={18} /> +55 11 99999-0000
-								</p>
-								<p>
-									<Camera size={18} /> @vanamata.experience
-								</p>
-								<p>
-									<Compass size={18} /> Brasil • Operações móveis
-								</p>
+								   <p>
+									   <PhoneCall size={18} />
+									   <span>+55 11 99999-0000</span>
+								   </p>
+								   <p>
+									   <Instagram size={18} />
+									   <span>@vanamata.experience</span>
+								   </p>
+								   <p>
+									   <MapIcon size={18} />
+									   <span>Brasil • Operações móveis</span>
+								   </p>
 							</div>
 						</div>
 					</div>
@@ -767,31 +874,77 @@ export default function Home() {
 			)}
 
 			<footer className={styles.footer}>
-				<div>
-					<h4>Vanamata</h4>
-					<p>Vans boutique, experiências premium e natureza preservada.</p>
+				<div className={styles.footerTop}>
+					<div className={styles.footerBrand}>
+						<div className={styles.footerLogo}>
+							<span>Vanamata</span>
+							<small>Van na Mata</small>
+						</div>
+						<p>Expedições boutique de van pelo Brasil. Experiências premium em natureza preservada com grupos exclusivos de até 12 pessoas.</p>
+						<div className={styles.footerSocials}>
+						<a href="https://instagram.com/vanamata" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+							<Instagram size={20} />
+						</a>
+						<a href="https://facebook.com/vanamata" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+							<Facebook size={20} />
+						</a>
+						<a href="https://vanamata.com/blog" target="_blank" rel="noopener noreferrer" aria-label="Blog">
+							<Compass size={20} />
+						</a>
+						</div>
+					</div>
+					<div className={styles.footerLinks}>
+						<div>
+							<h4>Explorar</h4>
+							<a href="#destinos">Destinos</a>
+							<a href="#pacotes">Pacotes</a>
+							<a href="#galeria">Galeria</a>
+							<a href="#depoimentos">Depoimentos</a>
+							<a href="#faq">FAQ</a>
+						</div>
+						<div>
+							<h4>Empresa</h4>
+							<a href="#sobre">Sobre Nós</a>
+							<a href="#sustentabilidade">Sustentabilidade</a>
+							<a href="#equipe">Nossa Equipe</a>
+							<a href="#parceiros">Parceiros</a>
+							<a href="#trabalhe-conosco">Trabalhe Conosco</a>
+						</div>
+						<div>
+							<h4>Suporte</h4>
+							<a href="#contato">Contato</a>
+							<a href="#politica">Política de Cancelamento</a>
+							<a href="#termos">Termos de Uso</a>
+							<a href="#privacidade">Privacidade</a>
+							<a href="#seguro">Seguro Viagem</a>
+						</div>
+						<div>
+							<h4>Contato</h4>
+							<p className={styles.footerContact}>
+								<PhoneCall size={16} />
+								<span>+55 11 99999-0000</span>
+							</p>
+							<p className={styles.footerContact}>
+								<Mail size={16} />
+								<span>contato@vanamata.com</span>
+							</p>
+							<p className={styles.footerContact}>
+								<MapIcon size={16} />
+								<span>São Paulo, Brasil</span>
+							</p>
+							<p className={styles.footerHours}>Atendimento: Seg-Sex, 9h-18h</p>
+						</div>
+					</div>
 				</div>
-				<div>
-					<p>Links</p>
-					<a href="#destinos">Destinos</a>
-					<a href="#galeria">Galeria</a>
-					<a href="#pacotes">Pacotes</a>
-					<a href="#contato">Contato</a>
-				</div>
-				<div>
-					<p>Contato</p>
-					<span>+55 11 99999-0000</span>
-					<span>contato@vanamata.com</span>
-					<span>São Paulo • Brasil</span>
-				</div>
-				<div>
-					<p>Redes</p>
-					<a href="https://instagram.com/vanamata" target="_blank" rel="noreferrer">
-						<Instagram size={16} /> Instagram
-					</a>
-					<a href="https://vanamata.com" target="_blank" rel="noreferrer">
-						<Compass size={16} /> Blog
-					</a>
+				<div className={styles.footerBottom}>
+					<p>© 2025 Vanamata Expedições. Todos os direitos reservados.</p>
+					<div className={styles.footerBottomLinks}>
+						<span>CNPJ: 00.000.000/0001-00</span>
+						<span>•</span>
+						<a href="#cadastur">Cadastur: 00.000000.00.0000-0</a>
+						<span>•</span>
+						<span>Carbono Neutro 🌱</span>
+					</div>
 				</div>
 			</footer>
 		</div>

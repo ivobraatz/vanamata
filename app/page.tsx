@@ -110,7 +110,7 @@ const DIFFERENTIALS: Differential[] = [
 	},
 ];
 
-const HERO_IMAGE = "/background.webp";
+const HERO_IMAGE = "background.webp";
 
 const DESTINATIONS: Destination[] = [
 	{
@@ -789,7 +789,7 @@ export default function Home() {
 				<section className={styles.contact} id="contato" data-aos="fade-up">
 					<div className={styles.contactMedia}>
 						   <Image
-							   src="/waterfall.webp"
+							   src="waterfall.webp"
 							   alt="Cachoeira com van Vanamata"
 							   fill
 							   sizes="(max-width: 768px) 100vw, 50vw"
